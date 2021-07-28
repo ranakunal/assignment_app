@@ -1,0 +1,12 @@
+<h1>Products</h1>
+
+
+<%= form_for @product,url: import_index_path, method: :post, html: { multipart: true } do |f| %>
+  <p>
+    <label>Upload product</label>
+    <%= f.file_field :attachment %>
+  </p>
+  <p>
+    <%= f.submit%>
+  </p>
+<% end %>
