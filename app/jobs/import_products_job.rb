@@ -2,7 +2,7 @@ class ImportProductsJob < ApplicationJob
   queue_as :default
 
   def perform(attachment_id)
-      ActionCable.server.broadcast("notification_channel","notify you when products are import");
+      ActionCable.server.broadcast("notification_channel","notify you when all products are import");
       @xlsx_unique_nm = []
       import = Import.find(attachment_id)
       file_path = import.attachment.url # get full path.
@@ -17,7 +17,7 @@ class ImportProductsJob < ApplicationJob
         if value == read_file.first
           if (value[0] != 'Handle' || value[1] != 'Title' || value[2] != 'Vendor' || value[3] != 'Type'  || value[4] != 'Tags' || value[5] != 'Variant SKU' || value[6] != 'Variant Inventory Qty' || value[7] != 'Description' || value[8] != 'Price' )
             @header_error = true
-            #add notification
+            ActionCable.server.broadcast("notification_channel","Pass correct header value");
             break
           end
           next
@@ -56,7 +56,7 @@ class ImportProductsJob < ApplicationJob
       end
       if @all_product.any?
         if Product.create(@all_product) 
-          #notivfication
+          ActionCable.server.broadcast("notification_channel","Products import successfully");
         end
       end
   end

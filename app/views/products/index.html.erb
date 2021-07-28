@@ -6,7 +6,8 @@
     <label>Upload product</label>
     <%= f.file_field :attachment %>
   </p>
+  <span class="csv_link">Download a <a href="/products_export.xlsx">sample XLSX template</a> to see an example of the format required.</span>
   <p>
-    <%= f.submit%>
+    <%= f.submit  "Add products"%>
   </p>
 <% end %>
