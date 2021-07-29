@@ -6,10 +6,14 @@ App.notification = App.cable.subscriptions.create "NotificationChannel",
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
-    # if(NotificationChannel.permission === 'granted'){
-    #   var title =  'Push notification'
-    #   var body = 'Triggerd the notification'
-    #   var options = {body: body}
-    #   new NotificationChannel(title, options)
-    # }
+    
+    # if NotificationChannel.permission == 'granted'
+    
+      title =  'Push notification'
+      body = data
+      options = {body: body}
+      # NotificationChannel
+      # Notification.new({title, options})
+      new Notification(title, options)
+    
     # Called when there's incoming data on the websocket for this channel
