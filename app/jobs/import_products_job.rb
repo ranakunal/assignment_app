@@ -2,7 +2,7 @@ class ImportProductsJob < ApplicationJob
   queue_as :default
 
   def perform(attachment_id)
-      ActionCable.server.broadcast("notification_channel","notify you when all products are import");
+      
       @xlsx_unique_nm = []
       import = Import.find(attachment_id)
       file_path = import.attachment.url # get full path.

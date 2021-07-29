@@ -7,6 +7,7 @@ class ImportController < ApplicationController
     def create
       @import = Import.new(import_params)
       if @import.save
+        ActionCable.server.broadcast("notification_channel","notify you when all products are import");
         ImportProductsJob.perform_later(@import.id)
       else
         render plain: "error"
